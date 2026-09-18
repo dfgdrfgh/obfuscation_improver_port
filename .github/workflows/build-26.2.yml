@@ -17,11 +17,6 @@ jobs:
     name: Build 26.2
     runs-on: ubuntu-24.04
     timeout-minutes: 20
-    env:
-      # GitHub's Linux runners use UTC. upload-artifact stores ZIP entry
-      # timestamps without timezone information, so Windows can otherwise
-      # show freshly built JARs a few hours in the future for Eastern Time.
-      TZ: America/New_York
 
     steps:
       - name: Check out repository
@@ -41,6 +36,12 @@ jobs:
 
       - name: Build 26.2
         run: ./gradlew :26.2-fabric:build --stacktrace
+
+      - name: Normalize JAR timestamps for Eastern Time
+        shell: bash
+        run: |
+          local_stamp="$(TZ=America/New_York date '+%Y%m%d%H%M.%S')"
+          TZ=UTC touch -t "$local_stamp" versions/26.2-fabric/build/libs/*.jar
 
       - name: Upload JAR
         uses: actions/upload-artifact@v7.0.1
