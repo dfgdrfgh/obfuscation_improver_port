@@ -17,6 +17,11 @@ jobs:
     name: Build 26.2
     runs-on: ubuntu-24.04
     timeout-minutes: 20
+    env:
+      # GitHub's Linux runners use UTC. upload-artifact stores ZIP entry
+      # timestamps without timezone information, so Windows can otherwise
+      # show freshly built JARs a few hours in the future for Eastern Time.
+      TZ: America/New_York
 
     steps:
       - name: Check out repository

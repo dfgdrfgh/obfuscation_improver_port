@@ -17,7 +17,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import survivalblock.obfuscation_improver.ObfuscatedTextImprover;
 
 import java.util.List;
 import java.util.Set;
@@ -70,7 +69,6 @@ public class FontStorageMixin {
 
         this.glyphsByWidth.clear();
 
-        int added = 0;
         for (int codePoint : restrictedProvider.getSupportedGlyphs()) {
             UnbakedGlyph glyph = restrictedProvider.getGlyph(codePoint);
             if (glyph == null || glyph.info() == SpecialGlyphs.MISSING) {
@@ -83,15 +81,7 @@ public class FontStorageMixin {
                             (Int2ObjectFunction<? extends IntList>) (width -> new IntArrayList())
                     )
                     .add(codePoint);
-            added++;
         }
-
-        ObfuscatedTextImprover.LOGGER.info(
-                "Restricted obfuscated glyph pool to {} glyphs across {} widths using {}",
-                added,
-                this.glyphsByWidth.size(),
-                restrictedProvider.getClass().getSimpleName()
-        );
     }
 
     private static boolean obfuscation_improver$isUnihex(GlyphProvider provider) {
