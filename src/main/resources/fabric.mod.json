@@ -1,32 +1,32 @@
 {
-	"schemaVersion": 1,
-	"id": "obfuscation_improver",
-	"version": "${version}",
-	"name": "Obfuscated Text Improver",
-	"description": "Improves the performance of Minecraft's obfuscated text format (Fixes MC-277733)",
-	"authors": [
-		"Survivalblock"
-	],
-	"contact": {
-		"homepage": "https://modrinth.com/mod/obfuscation_improver",
-		"sources": "https://github.com/ekulxam/obfuscation_improver",
-		"issues": "https://github.com/ekulxam/obfuscation_improver/issues"
-	},
-	"license": "MIT",
-	"icon": "assets/obfuscation_improver/icon.png",
-	"environment": "client",
-	"entrypoints": {
-		"client": [
-			"survivalblock.obfuscation_improver.ObfuscatedTextImprover"
-		]
-	},
-	"mixins": [
-		"obfuscation_improver.mixins.json"
-	],
-	"depends": {
-		"fabricloader": ">=0.16.0",
-		"minecraft": ">=1.21.1",
-		"java": ">=21",
-		"fabric-api": "*"
-	}
+    "schemaVersion": 1,
+    "id": "obfuscation_improver",
+    "version": "${version}",
+    "name": "Obfuscated Text Improver",
+    "description": "Improves the performance of Minecraft's obfuscated text format (Fixes MC-277733)",
+    "authors": [
+        "Survivalblock"
+    ],
+    "contact": {
+        "homepage": "https://modrinth.com/mod/obfuscation_improver",
+        "sources": "https://github.com/ekulxam/obfuscation_improver",
+        "issues": "https://github.com/ekulxam/obfuscation_improver/issues"
+    },
+    "license": "MIT",
+    "icon": "assets/obfuscation_improver/icon.png",
+    "environment": "client",
+    "entrypoints": {
+        "client": [
+            "survivalblock.obfuscation_improver.ObfuscatedTextImprover"
+        ]
+    },
+    "mixins": [
+        "obfuscation_improver.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.19.0",
+        "minecraft": "${minecraft}",
+        "java": ">=25",
+        "fabric-api": "*"
+    }
 }

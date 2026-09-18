@@ -1,0 +1,45 @@
+name: Build 26.2
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["26.2"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-26.2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build 26.2
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v6.0.1
+        with:
+          java-version: "25"
+          distribution: microsoft
+          verify-signature: true
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6.3.0
+
+      - name: Build 26.2
+        run: ./gradlew :26.2-fabric:build --stacktrace
+
+      - name: Upload JAR
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: obfuscation-improver-26.2
+          path: versions/26.2-fabric/build/libs/*.jar
+          if-no-files-found: error

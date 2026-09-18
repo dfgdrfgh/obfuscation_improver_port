@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "survivalblock.obfuscation_improver.mixin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "mixins": [
   ],
   "client": [
@@ -9,5 +9,5 @@
   ],
   "injectors": {
     "defaultRequire": 1
-	}
+  }
 }

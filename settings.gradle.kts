@@ -1,22 +1,21 @@
 pluginManagement {
-	repositories {
-		maven("https://maven.fabricmc.net/") { name = "Fabric" }
-		mavenCentral()
-		gradlePluginPortal()
-		maven("https://maven.kikugie.dev/releases") { name = "KikuGie Releases" }
-		maven("https://maven.kikugie.dev/snapshots") { name = "KikuGie Snapshots" }
-	}
+    repositories {
+        maven("https://maven.fabricmc.net/") { name = "Fabric" }
+        mavenCentral()
+        gradlePluginPortal()
+        maven("https://maven.kikugie.dev/releases") { name = "KikuGie Releases" }
+        maven("https://maven.kikugie.dev/snapshots") { name = "KikuGie Snapshots" }
+    }
 }
 
 plugins {
-	id("dev.kikugie.stonecutter") version "0.7.10"
+    id("dev.kikugie.stonecutter") version "0.7.10"
 }
 
 stonecutter {
-	kotlinController = true
+    kotlinController = true
 
-	// Subproject configuration
-	create(rootProject) {
+    create(rootProject) {
         fun match(version: String, vararg loaders: String) = loaders.forEach {
             if (it == "fabric" && stonecutter.eval(version, ">=26")) {
                 version("$version-$it", version).buildscript = "build.fabric_noremap.gradle.kts"
@@ -27,6 +26,7 @@ stonecutter {
 
         match("1.21.1", "fabric")
         match("1.21.11", "fabric")
-		vcsVersion = "1.21.1-fabric"
-	}
+        match("26.2", "fabric")
+        vcsVersion = "1.21.1-fabric"
+    }
 }
