@@ -31,6 +31,7 @@ jobs:
           chmod +x gradlew
           ./gradlew :1.21.1-fabric:build --no-daemon --stacktrace
       - name: Validate the actual installable mod JAR
+        id: verify_jar
         run: |
           python3 - <<'PY'
           import json
@@ -64,10 +65,13 @@ jobs:
                   raise AssertionError(f"Invalid JAR: {jar}") from error
           assert len(matches) == 1, f"Expected one Fabric 1.21.1 mod JAR; got {matches}"
           print("Validated Fabric 1.21.1 mod JAR:", matches[0])
+          import os
+          with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+              output.write(f"jar_path={matches[0]}\n")
           PY
       - name: Upload original installable 1.21.1 JAR
         uses: actions/upload-artifact@v4
         with:
           name: Obfuscation-Improver-Fabric-1.21.1
-          path: versions/1.21.1-fabric/build/libs/*.jar
+          path: ${{ steps.verify_jar.outputs.jar_path }}
           if-no-files-found: error
